@@ -23,13 +23,13 @@ To enable the CoLoad autoloader create and instance and call the method
  
 Exammples
 --------------------------------------------------------------------------------
-### Edit Extensions ###    
+### Edit Extensions   
     
     $myLoader = new CoLoad('myMapFile.json');
     $myLodder->extensins[] = '.def.php';
     $mLoader->extensions = array('.php');
     
-### Enable Autloader ###
+### Enable Autloader
     
     $myLoader = new CoLoad('myMapFile.json');
     $myLoader

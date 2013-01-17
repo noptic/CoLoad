@@ -4,6 +4,8 @@ author:     Oliver Anan <oliver@ananit.de>
 package:    CoLoad
 license:    lgpl 3 <http://www.gnu.org/licenses/lgpl-3.0.en.html
 tags:       [psr-0, pear2, autoloader]
+type:       class
+version:    0.2.1.0
 
 ================================================================================
 class daliaIT\coload\CoLoad
@@ -31,13 +33,13 @@ To enable the CoLoad autoloader create and instance and call the method
  
 Exammples
 --------------------------------------------------------------------------------
-### Edit Extensions ###    
+### Edit Extensions   
     
     $myLoader = new CoLoad('myMapFile.json');
     $myLodder->extensins[] = '.def.php';
     $mLoader->extensions = array('.php');
     
-### Enable Autloader ###
+### Enable Autloader
     
     $myLoader = new CoLoad('myMapFile.json');
     $myLoader
@@ -48,8 +50,8 @@ Exammples
 Source
 --------------------------------------------------------------------------------
 /*/
-namespace daliaIT\CoLoad;
-use InvalidArgumentException;
+    namespace daliaIT\CoLoad;
+    use InvalidArgumentException;
     class CoLoad
     {             
         public
@@ -171,4 +173,3 @@ use InvalidArgumentException;
             return null;
         }
     }
-?>
