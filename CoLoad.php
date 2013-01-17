@@ -55,17 +55,24 @@ Source
     class CoLoad
     {             
         public
+        #>array
             $map = array(),
             $extensions = array('.php','.class.php');
-
+            #<
+            
         protected 
+        #:array    
             $sources = array(),
+        #:string    
             $mapFile;
        
         private
+        #:callable    
             $callback = null,
+        #:bool
             $saveOnShutdownSet; 
-            
+        
+        #:this
         public function __construct(
             $mapFile = null, 
             $sources=array(), 
@@ -85,14 +92,13 @@ Source
             }
         }
         
+        #:this
         public function register(){
             spl_autoload_register( $this->callback );
+            return $this;
         }
         
-        public static function unregister(){
-           spl_autoload_unregister( static::$callback ); 
-        }
-        
+        #:this
         public  function addSource($src){
             if(array_search($src, $this->sources) === false){
                 $this->sources[] = $src;    
@@ -100,10 +106,12 @@ Source
             return $this;
         }
         
+        #:array
         public  function getSources(){
             return $this->sources;
         }
         
+        #:this
         public function loadMap(){       
             if(!is_readable($this->mapFile)){
                 throw new InvalidArgumentException(
@@ -117,6 +125,7 @@ Source
             return $this;
         }
         
+        #:this
         public function saveMap(){
             $mapDir = dirname($this->mapFile);
             if(! file_exists($mapDir) ){
@@ -126,8 +135,10 @@ Source
                 $this->mapFile,
                 json_encode($this->map)
             );
+            return $this;
         }
         
+        #:bool
         public function loadSourceCode($name){
             if(isset($this->map[$name]) && is_readable($this->map[$name])){
                 require $this->map[$name];
@@ -145,12 +156,14 @@ Source
                             } 
                         );
                     }
+                    return true;
                 } else {
                     return false;
                 }
             }
         }
         
+        #:string|null
         public function search($name){
             $normalized = str_replace(
                 array('\\','_'),
