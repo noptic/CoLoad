@@ -1,12 +1,4 @@
-<?php
-/*/
-author:     Oliver Anan <oliver@ananit.de>
-package:    CoLoad
-license:    lgpl 3 <http://www.gnu.org/licenses/lgpl-3.0.en.html
-tags:       [psr-0, pear2, autoloader]
-
-================================================================================
-class daliaIT\coload\CoLoad
+CoLoad
 ================================================================================
 PSR-0 compliant hybrid autoloader.
 
@@ -47,9 +39,9 @@ Exammples
         
 Source
 --------------------------------------------------------------------------------
-/*/
-namespace daliaIT\CoLoad;
-use InvalidArgumentException;
+
+    namespace daliaIT\CoLoad;
+    use InvalidArgumentException;
     class CoLoad
     {             
         public
@@ -171,4 +163,3 @@ use InvalidArgumentException;
             return null;
         }
     }
-?>
