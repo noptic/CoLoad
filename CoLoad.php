@@ -12,18 +12,14 @@ class daliaIT\coload\CoLoad
 ================================================================================
 PSR-0 compliant hybrid autoloader.
 
-CoLoader uses a map to determinate which file to include.
-If no map file is available or the class is not listed in the map it 
-searches all registered source directorys for a matching file and 
-updates the map.
-
 All namesace seperators and underscores are replaced with directory seperators.
 This way PSR-0 and PEAR2 naming style is supported.  
 
-If an map entry is wrong,  CoLOad will look for a matching file all source 
+CoLoad uses a map to determinate which file to include.
+If an map entry is wrong, or no map exists, CoLoad will look for a matching file all source 
 directories.
 
-At the end of the script execution the map file is updated. 
+At the end of the script execution the map file is updated, or created. 
 
 By default the loader will search for files ending with '.php' and '.class.php'
 but you can change this behaviour by editing the property 'extensions'.
@@ -67,8 +63,6 @@ Source
             $mapFile;
        
         private
-        #:callable    
-            $callback = null,
         #:bool
             $saveOnShutdownSet; 
         
@@ -83,18 +77,17 @@ Source
             if($mapFile && is_readable($mapFile)){
                 $this->loadMap();
             }
-            $loader = $this;
-            $this->callback = function($name) use ($loader){
-                return $loader->loadSourceCode($name);
-            };
             if($autoRegister){
-                $this->register;
+                $this->register();
             }
         }
         
         #:this
         public function register(){
-            spl_autoload_register( $this->callback );
+            $loader = $this;
+            spl_autoload_register( function($name) use ($loader){
+                return $loader->loadSourceCode($name);
+            });
             return $this;
         }
         
@@ -115,7 +108,7 @@ Source
         public function loadMap(){       
             if(!is_readable($this->mapFile)){
                 throw new InvalidArgumentException(
-                    "Can not read file '$mapFilePath'"
+                    "Can not read file '{$this->mapFile}'"
                 );           
             }
             $this->map = json_decode(
